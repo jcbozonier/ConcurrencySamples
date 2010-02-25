@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A8C14C8C-2D78-42FC-B856-4758CFC29EA9}</ProjectGuid>
+    <ProjectGuid>{B821FB27-8A72-4108-B4D0-ACD85BDDF439}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebsiteIndexer</RootNamespace>
-    <AssemblyName>WebsiteIndexer</AssemblyName>
+    <RootNamespace>WebsiteIndexerBehaviours</RootNamespace>
+    <AssemblyName>WebsiteIndexerBehaviours</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\WebsiteDownloader.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
