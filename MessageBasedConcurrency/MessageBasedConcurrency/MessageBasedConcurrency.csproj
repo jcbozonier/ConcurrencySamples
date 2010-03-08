@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A8C14C8C-2D78-42FC-B856-4758CFC29EA9}</ProjectGuid>
+    <ProjectGuid>{EBF73227-ED1C-4BC4-9419-68CEB104F80C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebsiteIndexer</RootNamespace>
-    <AssemblyName>WebsiteIndexer</AssemblyName>
+    <RootNamespace>MessageBasedConcurrency</RootNamespace>
+    <AssemblyName>MessageBasedConcurrency</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,12 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\Reactive\IMessage.cs" />
-    <Compile Include="Actors\Reactive\ISendChannel.cs" />
-    <Compile Include="Actors\Reactive\WebsiteDownloader.cs" />
-    <Compile Include="Actors\WebsiteDownloader.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="BaseFramework\Channel.cs" />
+    <Compile Include="BaseFramework\IActivateableProcess.cs" />
+    <Compile Include="BaseFramework\IObservable.cs" />
+    <Compile Include="BaseFramework\IObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebsiteDownloadExample\Actors\Url.cs" />
+    <Compile Include="WebsiteDownloadExample\Messages\ParsedWebPageMessage.cs" />
+    <Compile Include="WebsiteDownloadExample\ParseLinksFromWebSiteProcess.cs" />
+    <Compile Include="WebsiteDownloadExample\Messages\UrlMessage.cs" />
+    <Compile Include="WebsiteDownloadExample\Actors\WebPageLinkParser.cs" />
+    <Compile Include="WebsiteDownloadExample\Messages\WebPageSourceMessage.cs" />
+    <Compile Include="WebsiteDownloadExample\Actors\WebsiteDownloader.cs" />
+    <Compile Include="WebsiteDownloadExample\Actors\WebPageDataStorer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
