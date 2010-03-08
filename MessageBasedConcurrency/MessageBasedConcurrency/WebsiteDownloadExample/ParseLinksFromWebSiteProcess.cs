@@ -19,27 +19,27 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample
             var parseWebPageProcess = new WebPageLinkParser();
             var storeWebPageDataProcess = new WebPageDataStorer();
 
-            //urlToWebPageTextChannel.BroadcastTo(downloadWebpageProcess);
-            //downloadWebpageProcess.SendWebPageTextTo(webPageTextToParsedWebPageChannel);
-            //webPageTextToParsedWebPageChannel.BroadcastTo(parseWebPageProcess);
-            //parseWebPageProcess.SendParsedPagesTo(parsedWebPageToDataStoreChannel);
-            //parsedWebPageToDataStoreChannel.BroadcastTo(storeWebPageDataProcess);
-            //storeWebPageDataProcess.SendUniqueUrlsTo(urlToWebPageTextChannel);
+            urlToWebPageTextChannel.BroadcastTo(downloadWebpageProcess);
+            downloadWebpageProcess.SendWebPageTextTo(webPageTextToParsedWebPageChannel);
+            webPageTextToParsedWebPageChannel.BroadcastTo(parseWebPageProcess);
+            parseWebPageProcess.SendParsedPagesTo(parsedWebPageToDataStoreChannel);
+            parsedWebPageToDataStoreChannel.BroadcastTo(storeWebPageDataProcess);
+            storeWebPageDataProcess.SendUniqueUrlsTo(urlToWebPageTextChannel);
 
-            //new IActivateableProcess[]
-            //   {
-            //       urlToWebPageTextChannel, 
-            //       webPageTextToParsedWebPageChannel,
-            //       parsedWebPageToDataStoreChannel
-            //   }.Start();
+            new IActivateableProcess[]
+               {
+                   urlToWebPageTextChannel, 
+                   webPageTextToParsedWebPageChannel,
+                   parsedWebPageToDataStoreChannel
+               }.Start();
 
-            //urlToWebPageTextChannel.OnNext(new UrlMessage("http://www.cnn.com"));
+            urlToWebPageTextChannel.OnNext(new UrlMessage("http://www.cnn.com"));
 
-            downloadWebpageProcess.SendWebPageTextTo(parseWebPageProcess);
-            parseWebPageProcess.SendParsedPagesTo(storeWebPageDataProcess);
-            storeWebPageDataProcess.SendUniqueUrlsTo(downloadWebpageProcess);
+            //downloadWebpageProcess.SendWebPageTextTo(parseWebPageProcess);
+            //parseWebPageProcess.SendParsedPagesTo(storeWebPageDataProcess);
+            //storeWebPageDataProcess.SendUniqueUrlsTo(downloadWebpageProcess);
 
-            downloadWebpageProcess.OnNext(new UrlMessage("http://www.cnn.com"));
+            //downloadWebpageProcess.OnNext(new UrlMessage("http://www.cnn.com"));
 
         }
     }
