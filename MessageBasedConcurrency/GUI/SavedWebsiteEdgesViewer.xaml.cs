@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for SavedWebsiteEdgesViewer.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class SavedWebsiteEdgesViewer : Window
     {
-        public Window1()
+        public SavedWebsiteEdgesViewer()
         {
             InitializeComponent();
         }

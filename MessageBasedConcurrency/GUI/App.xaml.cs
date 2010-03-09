@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using MessageBasedConcurrency;
 using MessageBasedConcurrency.WebsiteDownloadExample;
 
 namespace GUI
@@ -15,7 +16,15 @@ namespace GUI
     {
         public App()
         {
-            new ParseLinksFromWebSiteProcess().DO();
+            var statusViewerViewModel = new StatusViewerViewModel();
+            var statusViewer = new SavedWebsiteEdgesViewer();
+            statusViewer.DataContext = statusViewerViewModel;
+
+            statusViewer.Show();
+
+            var displayTheSavedEdges = new DisplaySavedEdgesProcess(statusViewerViewModel, Dispatcher);
+            new ParseLinksFromWebSiteProcess().DO(displayTheSavedEdges);
+
         }
     }
 }

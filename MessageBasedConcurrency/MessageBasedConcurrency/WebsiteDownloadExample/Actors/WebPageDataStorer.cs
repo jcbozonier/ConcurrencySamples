@@ -10,6 +10,7 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
     public class WebPageDataStorer : IObserver<ParsedWebPageMessage>
     {
         private IObserver<UrlMessage> _NewlyEnteredUrlNotifications;
+        private IObserver<WebsiteEdge> _NewlySavedEdge;
 
         readonly List<WebsiteEdge> _WebsiteEdges;
 
@@ -28,6 +29,11 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
                                                      });
             _WebsiteEdges.AddRange(websiteEdges);
 
+            foreach(var edge in websiteEdges)
+            {
+                _NewlySavedEdge.OnNext(edge);
+            }
+
             foreach(var url in message.ToUrls)
             {
                 _NewlyEnteredUrlNotifications.OnNext(new UrlMessage(url));
@@ -44,13 +50,10 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
         {
             _NewlyEnteredUrlNotifications = channel;
         }
-    }
 
-    public class WebsiteEdge
-    {
-        public WebsiteEdge(Url fromUrl, string toUrl)
+        public void SendSavedEdgesTo(IObserver<WebsiteEdge> notifySavedEdges)
         {
-            
+            _NewlySavedEdge = notifySavedEdges;
         }
     }
 }
