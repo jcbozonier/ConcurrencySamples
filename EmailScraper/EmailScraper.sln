@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailScraperUI", "EmailScraper\EmailScraperUI.csproj", "{7FCAAF9F-5E6F-492F-AE71-F5E7CB05E46E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailScraperNetwork", "EmailScraperNetwork\EmailScraperNetwork.csproj", "{40C02222-A1D5-4200-81EC-6084B1B97055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailScraperBehaviours", "EmailScraperAgentBehaviours\EmailScraperBehaviours.csproj", "{B272098E-A845-4DA3-A06A-1AC31F58BBF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FCAAF9F-5E6F-492F-AE71-F5E7CB05E46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FCAAF9F-5E6F-492F-AE71-F5E7CB05E46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FCAAF9F-5E6F-492F-AE71-F5E7CB05E46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FCAAF9F-5E6F-492F-AE71-F5E7CB05E46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C02222-A1D5-4200-81EC-6084B1B97055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C02222-A1D5-4200-81EC-6084B1B97055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C02222-A1D5-4200-81EC-6084B1B97055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C02222-A1D5-4200-81EC-6084B1B97055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B272098E-A845-4DA3-A06A-1AC31F58BBF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B272098E-A845-4DA3-A06A-1AC31F58BBF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B272098E-A845-4DA3-A06A-1AC31F58BBF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B272098E-A845-4DA3-A06A-1AC31F58BBF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

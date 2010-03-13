@@ -1,0 +1,10 @@
+﻿FileReadingAgent
+	reads in file line by line and passes them along skipping the blank lines.
+ObviousEmailExtractionAgent
+	extracts obviously good email addresses from each line and passes them on. 
+	Lines without obviously good email addresses are passed to another processor.
+NonObviousEmailExtractionAgent
+	Uses more intelligent email extraction rules to find less obvious email addresses
+	Passes any found email addresses on to the GoodEmailCollectionAgent.
+GoodEmailCollectionAgent
+	Aggregates known good email addresses.
