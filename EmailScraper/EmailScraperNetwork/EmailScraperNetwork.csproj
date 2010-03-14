@@ -45,7 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\Class1.cs" />
+    <Compile Include="Actors\LineByLineFileReadingAgent.cs" />
+    <Compile Include="Actors\ObviousEmailExtractionAgent.cs" />
+    <Compile Include="BaseFramework\IEachableFile.cs" />
+    <Compile Include="BaseFramework\IObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

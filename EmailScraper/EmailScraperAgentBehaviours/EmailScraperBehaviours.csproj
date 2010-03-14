@@ -46,8 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\Fakes\FileReaderWithOneNonBlankLineAndMultipleBlankLines.cs" />
+    <Compile Include="Agents\Fakes\FileReaderWithOneNonBlankLineAndMultipleWhitespaceLines.cs" />
+    <Compile Include="Agents\Fakes\FileReaderWithOneNonBlankLineOfText.cs" />
     <Compile Include="Agents\LineByLineFileReadingAgentBehaviours.cs" />
+    <Compile Include="Agents\Fakes\MessageCollectionChannel.cs" />
+    <Compile Include="Agents\ObviousEmailExtractionAgentBehaviours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmailScraperNetwork\EmailScraperNetwork.csproj">
+      <Project>{40C02222-A1D5-4200-81EC-6084B1B97055}</Project>
+      <Name>EmailScraperNetwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
