@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Actors\LineByLineFileReadingAgent.cs" />
     <Compile Include="Actors\ObviousEmailExtractionAgent.cs" />
-    <Compile Include="BaseFramework\IEachableFile.cs" />
+    <Compile Include="BaseFramework\IReadableFile.cs" />
     <Compile Include="BaseFramework\IObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,10 +5,10 @@ namespace EmailScraperNetwork.Actors
 {
     public class LineByLineFileReadingAgent : IObserver<string>
     {
-        private readonly IEachableFile<string> FileReader;
+        private readonly IReadableFile<string> FileReader;
         private IObserver<string> ChannelToSendNonBlankLinesOfTextTo;
 
-        public LineByLineFileReadingAgent(IEachableFile<string> fileReader)
+        public LineByLineFileReadingAgent(IReadableFile<string> fileReader)
         {
             FileReader = fileReader;
         }

@@ -2,7 +2,7 @@
 
 namespace EmailScraperNetwork.BaseFramework
 {
-    public interface IEachableFile<T>
+    public interface IReadableFile<T>
     {
         IEnumerable<T> ReadFrom(string filePath);
     }

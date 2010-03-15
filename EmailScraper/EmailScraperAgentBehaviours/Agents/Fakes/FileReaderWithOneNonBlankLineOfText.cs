@@ -4,7 +4,7 @@ using EmailScraperNetwork.BaseFramework;
 
 namespace EmailScraperAgentBehaviours.Agents.Fakes
 {
-    public class FileReaderWithOneNonBlankLineOfText : IEachableFile<string>
+    public class FileReaderWithOneNonBlankLineOfText : IReadableFile<string>
     {
         public string FilePath;
         public const int NonblankLineCount = 1;

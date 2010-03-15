@@ -3,7 +3,7 @@ using EmailScraperNetwork.BaseFramework;
 
 namespace EmailScraperAgentBehaviours.Agents.Fakes
 {
-    public class FileReaderWithOneNonBlankLineAndMultipleBlankLines : IEachableFile<string>
+    public class FileReaderWithOneNonBlankLineAndMultipleBlankLines : IReadableFile<string>
     {
         public string ProvidedFilePath;
 
