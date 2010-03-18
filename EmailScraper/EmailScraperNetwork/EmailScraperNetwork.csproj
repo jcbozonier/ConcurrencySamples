@@ -46,9 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\LineByLineFileReadingAgent.cs" />
+    <Compile Include="Actors\LineByLineFileWritingAgent.cs" />
     <Compile Include="Actors\ObviousEmailExtractionAgent.cs" />
-    <Compile Include="BaseFramework\IReadableFile.cs" />
-    <Compile Include="BaseFramework\IObserver.cs" />
+    <Compile Include="BaseFramework\IFileReadingService.cs" />
+    <Compile Include="ChannelContracts\IBadEmailChannel.cs" />
+    <Compile Include="ChannelContracts\IGoodEmailChannel.cs" />
+    <Compile Include="ChannelContracts\INonblankLineOfTextChannel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

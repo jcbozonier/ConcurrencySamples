@@ -3,15 +3,16 @@ using EmailScraperNetwork.BaseFramework;
 
 namespace EmailScraperAgentBehaviours.Agents.Fakes
 {
-    public class FileReaderWithOneNonBlankLineAndMultipleBlankLines : IReadableFile<string>
+    public class FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines : IFileReadingService
     {
         public string ProvidedFilePath;
 
         public List<string> LinesInFile = new List<string>
                                               {
-                                                  "",
+                                                  "\n",
                                                   "line 1",
                                                   "",
+                                                  "\t ",
                                               };
 
         public IEnumerable<string> ReadFrom(string filePath)

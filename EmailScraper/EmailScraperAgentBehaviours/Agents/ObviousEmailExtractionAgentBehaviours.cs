@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EmailScraperAgentBehaviours.Agents.Fakes;
 using EmailScraperNetwork.Actors;
 using NUnit.Framework;
@@ -23,11 +24,10 @@ namespace Given_a_line_of_text.with_no_email_address
         [TestFixtureSetUp]
         public void Setup()
         {
-            It = new ObviousEmailExtractionAgent();
-            BadEmailChannel = new MessageCollectionChannel<string>();
-            GoodEmailChannel = new MessageCollectionChannel<string>();
-            It.ShouldSendBadEmailsTo(BadEmailChannel);
-            It.ShouldSendGoodEmailsTo(GoodEmailChannel);
+            BadEmailChannel = new TransperantBadEmailChannel();
+            GoodEmailChannel = new TransperantGoodEmailChannel();
+
+            It = new ObviousEmailExtractionAgent(GoodEmailChannel, BadEmailChannel);
 
             Context();
             Because();
@@ -35,7 +35,7 @@ namespace Given_a_line_of_text.with_no_email_address
 
         private void Because()
         {
-            It.OnNext(ProvidedLineOfText);
+            It.SendNonBlankLineOfText(ProvidedLineOfText);
         }
 
         private void Context()
@@ -45,9 +45,9 @@ namespace Given_a_line_of_text.with_no_email_address
 
         private ObviousEmailExtractionAgent It;
         private string ProvidedLineOfText;
-        private MessageCollectionChannel<string> BadEmailChannel;
+        private TransperantBadEmailChannel BadEmailChannel;
         private string ProvidedEmailAddress;
-        private MessageCollectionChannel<string> GoodEmailChannel;
+        private TransperantGoodEmailChannel GoodEmailChannel;
     }
 }
 
@@ -66,9 +66,9 @@ namespace Given_a_line_of_text.with_an_email_address.and_other_text
         [TestFixtureSetUp]
         public void Setup()
         {
-            It = new ObviousEmailExtractionAgent();
-            MessageChannel = new MessageCollectionChannel<string>();
-            It.ShouldSendGoodEmailsTo(MessageChannel);
+            MessageChannel = new TransperantGoodEmailChannel();
+
+            It = new ObviousEmailExtractionAgent(MessageChannel, null);
 
             Context();
             Because();
@@ -76,7 +76,7 @@ namespace Given_a_line_of_text.with_an_email_address.and_other_text
 
         private void Because()
         {
-            It.OnNext(ProvidedLineOfText);
+            It.SendNonBlankLineOfText(ProvidedLineOfText);
         }
 
         private void Context()
@@ -87,7 +87,7 @@ namespace Given_a_line_of_text.with_an_email_address.and_other_text
 
         private ObviousEmailExtractionAgent It;
         private string ProvidedLineOfText;
-        private MessageCollectionChannel<string> MessageChannel;
+        private TransperantGoodEmailChannel MessageChannel;
         private string ProvidedEmailAddress;
     }
 }
@@ -104,15 +104,14 @@ namespace Given_a_line_of_text.with_an_email_address
         }
 
         private ObviousEmailExtractionAgent It;
-        private MessageCollectionChannel<string> MessageChannel;
+        private TransperantGoodEmailChannel MessageChannel;
         private string ProvidedEmailAddress;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            It = new ObviousEmailExtractionAgent();
-            MessageChannel = new MessageCollectionChannel<string>();
-            It.ShouldSendGoodEmailsTo(MessageChannel);
+            MessageChannel = new TransperantGoodEmailChannel();
+            It = new ObviousEmailExtractionAgent(MessageChannel, null);
 
             Context();
             Because();
@@ -125,7 +124,7 @@ namespace Given_a_line_of_text.with_an_email_address
 
         private void Because()
         {
-            It.OnNext(ProvidedEmailAddress);
+            It.SendNonBlankLineOfText(ProvidedEmailAddress);
         }
     }
 }

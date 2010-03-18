@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EmailScraperAgentBehaviours.Agents.Fakes;
 using EmailScraperNetwork.Actors;
+using EmailScraperNetwork.ChannelContracts;
 using NUnit.Framework;
 
 namespace Given_a_file.with_lines_of_text.and_some_lines_with_whitespace_characters
@@ -23,24 +25,23 @@ namespace Given_a_file.with_lines_of_text.and_some_lines_with_whitespace_charact
         [Test]
         public void It_should_use_the_provided_file_path()
         {
-            Assert.That(FileReader.ProvidedFilePath, Is.EqualTo(ProvidedFilePath));
+            Assert.That(_fileReadingServiceReader.ProvidedFilePath, Is.EqualTo(ProvidedFilePath));
         }
 
         [TestFixtureSetUp]
         public void Setup()
         {
             ProvidedFilePath = "filePath";
-            MessageChannel = new MessageCollectionChannel<string>();
-            FileReader = new FileReaderWithOneNonBlankLineAndMultipleWhitespaceLines();
-            It = new LineByLineFileReadingAgent(FileReader);
-            It.ShouldSendLinesOfTextTo(MessageChannel);
+            MessageChannel = new ChannelForNonBlankTextLines();
+            _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines();
+            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, MessageChannel);
 
-            It.OnNext(ProvidedFilePath);
+            It.BeginReadingFromFilePath(ProvidedFilePath);
         }
 
-        private FileReaderWithOneNonBlankLineAndMultipleWhitespaceLines FileReader;
+        private FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines _fileReadingServiceReader;
         private LineByLineFileReadingAgent It;
-        private MessageCollectionChannel<string> MessageChannel;
+        private ChannelForNonBlankTextLines MessageChannel;
         private string ProvidedFilePath;
 
     }
@@ -60,24 +61,23 @@ namespace Given_a_file.with_lines_of_text.and_some_blank_lines
         [Test]
         public void It_should_use_the_provided_file_path()
         {
-            Assert.That(FileReader.ProvidedFilePath, Is.EqualTo(ProvidedFilePath));
+            Assert.That(_fileReadingServiceReader.ProvidedFilePath, Is.EqualTo(ProvidedFilePath));
         }
 
         [TestFixtureSetUp]
         public void Setup()
         {
             ProvidedFilePath = "filePath";
-            MessageChannel = new MessageCollectionChannel<string>();
-            FileReader = new FileReaderWithOneNonBlankLineAndMultipleBlankLines();
-            It = new LineByLineFileReadingAgent(FileReader);
-            It.ShouldSendLinesOfTextTo(MessageChannel);
-
-            It.OnNext(ProvidedFilePath);
+            MessageChannel = new ChannelForNonBlankTextLines();
+            _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines();
+            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, MessageChannel);
+            
+            It.BeginReadingFromFilePath(ProvidedFilePath);
         }
 
-        private FileReaderWithOneNonBlankLineAndMultipleBlankLines FileReader;
+        private FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines _fileReadingServiceReader;
         private LineByLineFileReadingAgent It;
-        private MessageCollectionChannel<string> MessageChannel;
+        private ChannelForNonBlankTextLines MessageChannel;
         private string ProvidedFilePath;
     }
 }
@@ -90,34 +90,33 @@ namespace Given_a_file.with_lines_of_text
         [Test]
         public void It_should_send_out_a_message_for_each_line()
         {
-            Assert.That(LinesOfTextChannel.ReceivedMessagesCount, Is.EqualTo(FileReaderWithOneNonBlankLineOfText.NonblankLineCount));
+            Assert.That(LinesOfTextChannel.ReceivedMessagesCount, Is.EqualTo(FileReadingServiceReaderWithOneNonBlankLineOfText.NonblankLineCount));
         }
 
         [Test]
         public void It_should_read_from_the_correct_file()
         {
-            Assert.That(FileReader.FilePath, Is.EqualTo(ProvidedFilePath));
+            Assert.That(_fileReadingServiceReader.FilePath, Is.EqualTo(ProvidedFilePath));
         }
 
         private void Context()
         {
-            FileReader = new FileReaderWithOneNonBlankLineOfText();
+            _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineOfText();
         }
 
         private void Because()
         {
-            It.OnNext(ProvidedFilePath);
+            It.BeginReadingFromFilePath(ProvidedFilePath);
         }
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            LinesOfTextChannel = new MessageCollectionChannel<string>();
+            LinesOfTextChannel = new ChannelForNonBlankTextLines();
 
             Context();
 
-            It = new LineByLineFileReadingAgent(FileReader);
-            It.ShouldSendLinesOfTextTo(LinesOfTextChannel);
+            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, LinesOfTextChannel);
 
             ProvidedFilePath = "c:/file_path";
 
@@ -125,8 +124,8 @@ namespace Given_a_file.with_lines_of_text
         }
 
         private LineByLineFileReadingAgent It;
-        private MessageCollectionChannel<string> LinesOfTextChannel;
-        private FileReaderWithOneNonBlankLineOfText FileReader;
+        private ChannelForNonBlankTextLines LinesOfTextChannel;
+        private FileReadingServiceReaderWithOneNonBlankLineOfText _fileReadingServiceReader;
         private string ProvidedFilePath;
     }
 }

@@ -1,30 +1,30 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EmailScraperNetwork.BaseFramework;
+using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraperNetwork.Actors
 {
-    public class LineByLineFileReadingAgent : IObserver<string>
+    public class LineByLineFileReadingAgent
     {
-        private readonly IReadableFile<string> FileReader;
-        private IObserver<string> ChannelToSendNonBlankLinesOfTextTo;
+        private readonly IFileReadingService _fileReadingServiceReader;
+        private readonly INonblankLineOfTextChannel ChannelToSendNonBlankLinesOfTextTo;
 
-        public LineByLineFileReadingAgent(IReadableFile<string> fileReader)
+        public LineByLineFileReadingAgent(
+            IFileReadingService fileReadingServiceReader, 
+            INonblankLineOfTextChannel sendNonBlankLinesOfTextChannel)
         {
-            FileReader = fileReader;
+            _fileReadingServiceReader = fileReadingServiceReader;
+            ChannelToSendNonBlankLinesOfTextTo = sendNonBlankLinesOfTextChannel;
         }
 
-        public void ShouldSendLinesOfTextTo(IObserver<string> channel)
+        public void BeginReadingFromFilePath(string filePath)
         {
-            ChannelToSendNonBlankLinesOfTextTo = channel;
-        }
-
-        public void OnNext(string filePath)
-        {
-            var lines = FileReader.ReadFrom(filePath);
+            var lines = _fileReadingServiceReader.ReadFrom(filePath);
 
             foreach(var line in lines.Where(x=> x.Trim() != ""))
             {
-                ChannelToSendNonBlankLinesOfTextTo.OnNext(line);
+                ChannelToSendNonBlankLinesOfTextTo.SendNonBlankLineOfText(line);
             }
         }
     }
