@@ -18,14 +18,19 @@ namespace EmailScraperNetwork.Actors
             ChannelToSendNonBlankLinesOfTextTo = sendNonBlankLinesOfTextChannel;
         }
 
-        public void SendBeginReadingFromFilePath(string filePath)
+        public void OnNext(string filePath)
         {
             var lines = _fileReadingServiceReader.ReadFrom(filePath);
 
             foreach(var line in lines.Where(x=> x.Trim() != ""))
             {
-                ChannelToSendNonBlankLinesOfTextTo.SendNonBlankLineOfText(line);
+                ChannelToSendNonBlankLinesOfTextTo.OnNext(line);
             }
+        }
+
+        public void OnComplete()
+        {
+            ChannelToSendNonBlankLinesOfTextTo.OnComplete();
         }
     }
 }

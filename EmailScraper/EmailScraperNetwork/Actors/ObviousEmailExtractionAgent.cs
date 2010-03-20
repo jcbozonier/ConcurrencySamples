@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraperNetwork.Actors
@@ -17,14 +18,19 @@ namespace EmailScraperNetwork.Actors
             EmailMatcher = new Regex(@"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b");
         }
 
-        public void SendNonBlankLineOfText(string lineOfText)
+        public void OnNext(string lineOfText)
         {
             var matches = EmailMatcher.Matches(lineOfText);
 
             if(matches.Count > 0)
-                GoodEmailChannel.SendGoodEmailAddress(matches[0].Value);
+                GoodEmailChannel.OnNext(matches[0].Value);
             else 
-                BadEmailChannel.SendBadEmailAddress(lineOfText);
+                BadEmailChannel.OnNext(lineOfText);
+        }
+
+        public void OnComplete()
+        {
+            GoodEmailChannel.OnComplete();
         }
     }
 }

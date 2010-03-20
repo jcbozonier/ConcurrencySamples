@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Threading;
+using EmailScraperNetwork.BaseFramework;
 using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraper
 {
     public class ProcessRouter : INonblankLineOfTextChannel, IGoodEmailChannel, IBadEmailChannel, ILineByLineFileReadingAgentChannel
     {
-        private ILineByLineFileReadingAgentChannel _lineByLineFileReadingAgentChannel;
-        private INonblankLineOfTextChannel _NonblankLineOfTextChannel;
+        private readonly Channel<ILineByLineFileReadingAgentChannel, string> _LineByLineFileReadingAgentChannel;
+        private readonly Channel<INonblankLineOfTextChannel, string> _NonblankLineOfTextChannel;
         private IGoodEmailChannel _GoodEmailChannel;
         private IBadEmailChannel _BadEmailChannel;
 
+        public ProcessRouter()
+        {
+            _LineByLineFileReadingAgentChannel = new Channel<ILineByLineFileReadingAgentChannel, string>();
+            _NonblankLineOfTextChannel = new Channel<INonblankLineOfTextChannel, string>();
+        }
+
         public void SendNonBlankLineOfTextTo(INonblankLineOfTextChannel nonblankLineOfTextChannel)
         {
-            _NonblankLineOfTextChannel = nonblankLineOfTextChannel;
+            _NonblankLineOfTextChannel.BroadcastTo(nonblankLineOfTextChannel);
         }
 
         public void SendGoodEmailAddressesTo(IGoodEmailChannel channel)
@@ -28,37 +35,84 @@ namespace EmailScraper
 
         public void SendFilesToReadFromTo(ILineByLineFileReadingAgentChannel lineByLineFileReadingAgentChannel)
         {
-            _lineByLineFileReadingAgentChannel = lineByLineFileReadingAgentChannel;
+            _LineByLineFileReadingAgentChannel.BroadcastTo(lineByLineFileReadingAgentChannel);
         }
 
-        public void SendNonBlankLineOfText(string message)
+        void INonblankLineOfTextChannel.OnNext(string message)
         {
-            _NonblankLineOfTextChannel.SendNonBlankLineOfText(message);
+            _NonblankLineOfTextChannel.OnNext(message);
         }
 
-        public void SendGoodEmailAddress(string emailAddress)
+        void INonblankLineOfTextChannel.OnComplete()
         {
-            _GoodEmailChannel.SendGoodEmailAddress(emailAddress);
+            _NonblankLineOfTextChannel.OnComplete();
         }
 
-        public void SendBadEmailAddress(string emailAddress)
+        void IGoodEmailChannel.OnNext(string emailAddress)
         {
-            _BadEmailChannel.SendBadEmailAddress(emailAddress);
+            _GoodEmailChannel.OnNext(emailAddress);
+        }
+        void IGoodEmailChannel.OnComplete()
+        {
+            _GoodEmailChannel.OnComplete();
         }
 
-        public void SendBeginReadingFromFilePath(string filePath)
+        void IBadEmailChannel.OnNext(string emailAddress)
         {
-            _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath);
+            _BadEmailChannel.OnNext(emailAddress);
+        }
+        void IBadEmailChannel.OnComplete(string emailAddress)
+        {
+            _BadEmailChannel.OnComplete();
         }
 
-        public void StartFileReading(string filePath)
+        void ILineByLineFileReadingAgentChannel.OnNext(string filePath)
         {
-            _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath);
+            _LineByLineFileReadingAgentChannel.OnNext(filePath);
+        }
+        void ILineByLineFileReadingAgentChannel.OnComplete()
+        {
+            _LineByLineFileReadingAgentChannel.OnComplete();
         }
 
         public void StartProcess(string filePath)
         {
-            ThreadPool.QueueUserWorkItem(x => _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath));
+            ThreadPool.QueueUserWorkItem(x => _LineByLineFileReadingAgentChannel.Activate());
+            ThreadPool.QueueUserWorkItem(x => _NonblankLineOfTextChannel.Activate());
+
+            _LineByLineFileReadingAgentChannel.OnNext(filePath);
+            _LineByLineFileReadingAgentChannel.OnComplete();
+        }
+
+        public void OnNext(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnComplete()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SyncChannel<T, K> : IObserver<K>
+        where T : IObserver<K>
+    {
+        private T _Agent;
+
+        public void OnNext(K message)
+        {
+            _Agent.OnNext(message);
+        }
+
+        public void OnComplete()
+        {
+            _Agent.OnComplete();
+        }
+
+        public void BroadcastTo(T agent)
+        {
+            _Agent = agent;
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Threading;
 
 namespace EmailScraperNetwork.BaseFramework
 {
-    public class Channel<T> : IObserver<T>
+    public class Channel<K, T> : IObserver<T>
+        where K : IObserver<T>
     {
         private readonly Queue _Queue;
         private readonly List<IObserver<T>> _Observers;
@@ -30,6 +31,7 @@ namespace EmailScraperNetwork.BaseFramework
         public void OnComplete()
         {
             _Finished = true;
+            _NewItemEntered.Set();
         }
 
         public void BroadcastTo(IObserver<T> subscriber)
@@ -39,16 +41,18 @@ namespace EmailScraperNetwork.BaseFramework
 
         public void Activate()
         {
-            while(!_Finished)
+            while (!_Finished || _Queue.Count > 0)
             {
                 _NewItemEntered.WaitOne();
 
                 while (_Queue.Count > 0)
                 {
                     var message = (T) _Queue.Dequeue();
-                    _Observers.ForEach(x => x.OnNext(message));
+                    _Observers.ForEach(x => ((K)x).OnNext(message));
                 }
             }
+
+            _Observers.ForEach(x=>x.OnComplete());
         }
     }
 }

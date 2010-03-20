@@ -3,6 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Window1" Height="279" Width="443">
     <Grid>
-        <ListView ItemsSource="{Binding EmailAddresses}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding EmailAddressCount}" />
+        <ListView Grid.Row="1" ItemsSource="{Binding EmailAddresses}" />
     </Grid>
 </Window>

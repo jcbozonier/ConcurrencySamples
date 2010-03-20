@@ -14,10 +14,15 @@ namespace EmailScraperAgentBehaviours.Agents.Fakes
             ReceivedMessages = new List<string>();
         }
 
-        public void SendGoodEmailAddress(string lineOfText)
+        public void OnNext(string lineOfText)
         {
             ReceivedMessagesCount++;
             ReceivedMessages.Add(lineOfText);
+        }
+
+        public void OnComplete()
+        {
+            
         }
     }
 
@@ -31,10 +36,20 @@ namespace EmailScraperAgentBehaviours.Agents.Fakes
             ReceivedMessages = new List<string>();
         }
 
-        public void SendBadEmailAddress(string lineOfText)
+        public void OnNext(string lineOfText)
         {
             ReceivedMessagesCount++;
             ReceivedMessages.Add(lineOfText);
+        }
+
+        public void OnComplete(string emailAddress)
+        {
+            
+        }
+
+        public void OnComplete()
+        {
+            
         }
     }
 }

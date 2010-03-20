@@ -1,11 +1,22 @@
-﻿using EmailScraperNetwork.ChannelContracts;
+﻿using System;
+using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraper
 {
     public class DeadBadEmailChannel : IBadEmailChannel
     {
-        public void SendBadEmailAddress(string emailAddress)
+        public void OnNext(string emailAddress)
         {
+        }
+
+        public void OnComplete(string emailAddress)
+        {
+            
+        }
+
+        public void OnComplete()
+        {
+            
         }
     }
 }

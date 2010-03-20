@@ -36,7 +36,7 @@ namespace Given_a_file.with_lines_of_text.and_some_lines_with_whitespace_charact
             _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines();
             It = new LineByLineFileReadingAgentChannel(_fileReadingServiceReader, MessageChannel);
 
-            It.SendBeginReadingFromFilePath(ProvidedFilePath);
+            It.OnNext(ProvidedFilePath);
         }
 
         private FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines _fileReadingServiceReader;
@@ -72,7 +72,7 @@ namespace Given_a_file.with_lines_of_text.and_some_blank_lines
             _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines();
             It = new LineByLineFileReadingAgentChannel(_fileReadingServiceReader, MessageChannel);
             
-            It.SendBeginReadingFromFilePath(ProvidedFilePath);
+            It.OnNext(ProvidedFilePath);
         }
 
         private FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines _fileReadingServiceReader;
@@ -106,7 +106,7 @@ namespace Given_a_file.with_lines_of_text
 
         private void Because()
         {
-            It.SendBeginReadingFromFilePath(ProvidedFilePath);
+            It.OnNext(ProvidedFilePath);
         }
 
         [TestFixtureSetUp]

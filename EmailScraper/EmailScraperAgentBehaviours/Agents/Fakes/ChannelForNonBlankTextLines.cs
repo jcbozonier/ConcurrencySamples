@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraperAgentBehaviours.Agents.Fakes
@@ -13,10 +14,15 @@ namespace EmailScraperAgentBehaviours.Agents.Fakes
             ReceivedMessages = new List<string>();
         }
 
-        public void SendNonBlankLineOfText(string lineOfText)
+        public void OnNext(string lineOfText)
         {
             ReceivedMessagesCount++;
             ReceivedMessages.Add(lineOfText);
+        }
+
+        public void OnComplete()
+        {
+            
         }
     }
 }

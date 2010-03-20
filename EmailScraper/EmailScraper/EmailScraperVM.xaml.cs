@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using EmailScraperNetwork.ChannelContracts;
 
@@ -17,13 +18,34 @@ namespace EmailScraper
             private set;
         }
 
-        public void SendGoodEmailAddress(string emailAddress)
+        public int EmailAddressCount
+        {
+            get; 
+            private set;
+        }
+
+        void IGoodEmailChannel.OnNext(string emailAddress)
         {
             EmailAddresses.Add(emailAddress);
+            EmailAddressCount++;
+
             if(PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs("EmailAddresses"));
+                PropertyChanged(this, new PropertyChangedEventArgs("EmailAddressCount"));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnNext(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnComplete()
+        {
+            
+        }
     }
 }

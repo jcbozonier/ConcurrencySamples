@@ -1,7 +1,11 @@
-﻿namespace EmailScraperNetwork.ChannelContracts
+﻿using System;
+using EmailScraperNetwork.BaseFramework;
+
+namespace EmailScraperNetwork.ChannelContracts
 {
-    public interface ILineByLineFileReadingAgentChannel
+    public interface ILineByLineFileReadingAgentChannel : IObserver<string>
     {
-        void SendBeginReadingFromFilePath(string filePath);
+        void OnNext(string message);
+        void OnComplete();
     }
 }

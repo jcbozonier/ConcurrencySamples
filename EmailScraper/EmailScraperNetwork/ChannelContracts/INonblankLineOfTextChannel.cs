@@ -1,7 +1,10 @@
-﻿namespace EmailScraperNetwork.ChannelContracts
+﻿using EmailScraperNetwork.BaseFramework;
+
+namespace EmailScraperNetwork.ChannelContracts
 {
-    public interface INonblankLineOfTextChannel
+    public interface INonblankLineOfTextChannel : IObserver<string>
     {
-        void SendNonBlankLineOfText(string message);
+        void OnNext(string message);
+        void OnComplete();
     }
 }

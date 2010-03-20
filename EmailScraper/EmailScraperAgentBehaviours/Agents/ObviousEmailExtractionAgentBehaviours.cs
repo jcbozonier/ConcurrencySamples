@@ -35,7 +35,7 @@ namespace Given_a_line_of_text.with_no_email_address
 
         private void Because()
         {
-            It.SendNonBlankLineOfText(ProvidedLineOfText);
+            It.OnNext(ProvidedLineOfText);
         }
 
         private void Context()
@@ -76,7 +76,7 @@ namespace Given_a_line_of_text.with_an_email_address.and_other_text
 
         private void Because()
         {
-            It.SendNonBlankLineOfText(ProvidedLineOfText);
+            It.OnNext(ProvidedLineOfText);
         }
 
         private void Context()
@@ -124,7 +124,7 @@ namespace Given_a_line_of_text.with_an_email_address
 
         private void Because()
         {
-            It.SendNonBlankLineOfText(ProvidedEmailAddress);
+            It.OnNext(ProvidedEmailAddress);
         }
     }
 }

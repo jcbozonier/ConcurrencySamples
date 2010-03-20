@@ -38,10 +38,10 @@ namespace EmailScraper
             router.SendNonBlankLineOfTextTo(emailExtractionAgent);
             router.SendFilesToReadFromTo(lineByLineFileReadingAgent);
 
-            router.StartProcess(@"C:\Code\ConcurrencySamples\EmailScraper\Files\Sample1.txt");
-
             ui.DataContext = vm;
             ui.Show();
+
+            router.StartProcess(@"C:\Code\ConcurrencySamples\EmailScraper\Files\Sample1.txt");
         }
     }
 
@@ -56,9 +56,14 @@ namespace EmailScraper
             _dispatcher = dispatcher;
         }
 
-        public void SendGoodEmailAddress(string emailAddress)
+        public void OnNext(string emailAddress)
         {
-            _dispatcher.Invoke((Action)(() => _goodEmailChannel.SendGoodEmailAddress(emailAddress)));
+            _dispatcher.Invoke((Action)(() => _goodEmailChannel.OnNext(emailAddress)));
+        }
+
+        public void OnComplete()
+        {
+            _dispatcher.Invoke((Action)(() => _goodEmailChannel.OnComplete()));
         }
     }
 }

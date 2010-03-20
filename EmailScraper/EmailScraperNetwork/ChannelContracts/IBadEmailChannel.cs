@@ -1,7 +1,10 @@
-﻿namespace EmailScraperNetwork.ChannelContracts
+﻿using EmailScraperNetwork.BaseFramework;
+
+namespace EmailScraperNetwork.ChannelContracts
 {
-    public interface IBadEmailChannel
+    public interface IBadEmailChannel : IObserver<string>
     {
-        void SendBadEmailAddress(string emailAddress);
+        void OnNext(string emailAddress);
+        void OnComplete(string emailAddress);
     }
 }
