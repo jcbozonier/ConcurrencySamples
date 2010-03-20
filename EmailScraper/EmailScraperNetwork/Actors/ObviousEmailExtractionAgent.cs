@@ -3,7 +3,7 @@ using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraperNetwork.Actors
 {
-    public class ObviousEmailExtractionAgent
+    public class ObviousEmailExtractionAgent : INonblankLineOfTextChannel
     {
         private readonly IGoodEmailChannel GoodEmailChannel;
         private readonly IBadEmailChannel BadEmailChannel;

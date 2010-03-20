@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\LineByLineFileReadingAgent.cs" />
+    <Compile Include="ChannelContracts\ILineByLineFileReadingAgentChannel.cs" />
+    <Compile Include="Actors\LineByLineFileReadingAgentChannel.cs" />
     <Compile Include="Actors\LineByLineFileWritingAgent.cs" />
     <Compile Include="Actors\ObviousEmailExtractionAgent.cs" />
     <Compile Include="BaseFramework\IFileReadingService.cs" />

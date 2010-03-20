@@ -68,6 +68,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeadBadEmailChannel.xaml.cs" />
+    <Compile Include="EmailScraperVM.xaml.cs" />
+    <Compile Include="ProcessRouter.xaml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +93,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmailScraperNetwork\EmailScraperNetwork.csproj">
+      <Project>{40C02222-A1D5-4200-81EC-6084B1B97055}</Project>
+      <Name>EmailScraperNetwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

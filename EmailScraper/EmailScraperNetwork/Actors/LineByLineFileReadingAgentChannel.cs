@@ -5,12 +5,12 @@ using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraperNetwork.Actors
 {
-    public class LineByLineFileReadingAgent
+    public class LineByLineFileReadingAgentChannel : ILineByLineFileReadingAgentChannel
     {
         private readonly IFileReadingService _fileReadingServiceReader;
         private readonly INonblankLineOfTextChannel ChannelToSendNonBlankLinesOfTextTo;
 
-        public LineByLineFileReadingAgent(
+        public LineByLineFileReadingAgentChannel(
             IFileReadingService fileReadingServiceReader, 
             INonblankLineOfTextChannel sendNonBlankLinesOfTextChannel)
         {
@@ -18,7 +18,7 @@ namespace EmailScraperNetwork.Actors
             ChannelToSendNonBlankLinesOfTextTo = sendNonBlankLinesOfTextChannel;
         }
 
-        public void BeginReadingFromFilePath(string filePath)
+        public void SendBeginReadingFromFilePath(string filePath)
         {
             var lines = _fileReadingServiceReader.ReadFrom(filePath);
 

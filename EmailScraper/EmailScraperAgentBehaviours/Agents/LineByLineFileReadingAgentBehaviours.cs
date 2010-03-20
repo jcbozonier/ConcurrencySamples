@@ -34,13 +34,13 @@ namespace Given_a_file.with_lines_of_text.and_some_lines_with_whitespace_charact
             ProvidedFilePath = "filePath";
             MessageChannel = new ChannelForNonBlankTextLines();
             _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines();
-            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, MessageChannel);
+            It = new LineByLineFileReadingAgentChannel(_fileReadingServiceReader, MessageChannel);
 
-            It.BeginReadingFromFilePath(ProvidedFilePath);
+            It.SendBeginReadingFromFilePath(ProvidedFilePath);
         }
 
         private FileReadingServiceReaderWithOneNonBlankLineAndMultipleWhitespaceLines _fileReadingServiceReader;
-        private LineByLineFileReadingAgent It;
+        private LineByLineFileReadingAgentChannel It;
         private ChannelForNonBlankTextLines MessageChannel;
         private string ProvidedFilePath;
 
@@ -70,13 +70,13 @@ namespace Given_a_file.with_lines_of_text.and_some_blank_lines
             ProvidedFilePath = "filePath";
             MessageChannel = new ChannelForNonBlankTextLines();
             _fileReadingServiceReader = new FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines();
-            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, MessageChannel);
+            It = new LineByLineFileReadingAgentChannel(_fileReadingServiceReader, MessageChannel);
             
-            It.BeginReadingFromFilePath(ProvidedFilePath);
+            It.SendBeginReadingFromFilePath(ProvidedFilePath);
         }
 
         private FileReadingServiceReaderWithOneNonBlankLineAndMultipleBlankLines _fileReadingServiceReader;
-        private LineByLineFileReadingAgent It;
+        private LineByLineFileReadingAgentChannel It;
         private ChannelForNonBlankTextLines MessageChannel;
         private string ProvidedFilePath;
     }
@@ -106,7 +106,7 @@ namespace Given_a_file.with_lines_of_text
 
         private void Because()
         {
-            It.BeginReadingFromFilePath(ProvidedFilePath);
+            It.SendBeginReadingFromFilePath(ProvidedFilePath);
         }
 
         [TestFixtureSetUp]
@@ -116,14 +116,14 @@ namespace Given_a_file.with_lines_of_text
 
             Context();
 
-            It = new LineByLineFileReadingAgent(_fileReadingServiceReader, LinesOfTextChannel);
+            It = new LineByLineFileReadingAgentChannel(_fileReadingServiceReader, LinesOfTextChannel);
 
             ProvidedFilePath = "c:/file_path";
 
             Because();
         }
 
-        private LineByLineFileReadingAgent It;
+        private LineByLineFileReadingAgentChannel It;
         private ChannelForNonBlankTextLines LinesOfTextChannel;
         private FileReadingServiceReaderWithOneNonBlankLineOfText _fileReadingServiceReader;
         private string ProvidedFilePath;
