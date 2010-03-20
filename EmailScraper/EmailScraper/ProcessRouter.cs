@@ -1,4 +1,6 @@
-﻿using EmailScraperNetwork.ChannelContracts;
+﻿using System;
+using System.Threading;
+using EmailScraperNetwork.ChannelContracts;
 
 namespace EmailScraper
 {
@@ -9,22 +11,22 @@ namespace EmailScraper
         private IGoodEmailChannel _GoodEmailChannel;
         private IBadEmailChannel _BadEmailChannel;
 
-        public void SetNonBlankLineOfTextChannel(INonblankLineOfTextChannel nonblankLineOfTextChannel)
+        public void SendNonBlankLineOfTextTo(INonblankLineOfTextChannel nonblankLineOfTextChannel)
         {
             _NonblankLineOfTextChannel = nonblankLineOfTextChannel;
         }
 
-        public void SetGoodEmailChannel(IGoodEmailChannel channel)
+        public void SendGoodEmailAddressesTo(IGoodEmailChannel channel)
         {
             _GoodEmailChannel = channel;
         }
 
-        public void SetBadEmailChannel(IBadEmailChannel channel)
+        public void SendLinesOfTextWithNoObviousEmailAddressTo(IBadEmailChannel channel)
         {
             _BadEmailChannel = channel;
         }
 
-        public void SetLineByLineFileReadingChannel(ILineByLineFileReadingAgentChannel lineByLineFileReadingAgentChannel)
+        public void SendFilesToReadFromTo(ILineByLineFileReadingAgentChannel lineByLineFileReadingAgentChannel)
         {
             _lineByLineFileReadingAgentChannel = lineByLineFileReadingAgentChannel;
         }
@@ -47,6 +49,16 @@ namespace EmailScraper
         public void SendBeginReadingFromFilePath(string filePath)
         {
             _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath);
+        }
+
+        public void StartFileReading(string filePath)
+        {
+            _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath);
+        }
+
+        public void StartProcess(string filePath)
+        {
+            ThreadPool.QueueUserWorkItem(x => _lineByLineFileReadingAgentChannel.SendBeginReadingFromFilePath(filePath));
         }
     }
 }

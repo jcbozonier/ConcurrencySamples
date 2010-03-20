@@ -6,11 +6,8 @@ namespace EmailScraper
 {
     public class EmailScraperVM : INotifyPropertyChanged, IGoodEmailChannel
     {
-        private readonly ILineByLineFileReadingAgentChannel _StartFileReading;
-
-        public EmailScraperVM(ILineByLineFileReadingAgentChannel startFileReading)
+        public EmailScraperVM()
         {
-            _StartFileReading = startFileReading;
             EmailAddresses = new ObservableCollection<string>();
         }
 
@@ -18,11 +15,6 @@ namespace EmailScraper
         {
             get; 
             private set;
-        }
-
-        public void StartFileReading(string filePath)
-        {
-            _StartFileReading.SendBeginReadingFromFilePath(filePath);
         }
 
         public void SendGoodEmailAddress(string emailAddress)

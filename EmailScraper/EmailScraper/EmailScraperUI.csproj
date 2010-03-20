@@ -70,7 +70,7 @@
   <ItemGroup>
     <Compile Include="DeadBadEmailChannel.xaml.cs" />
     <Compile Include="EmailScraperVM.xaml.cs" />
-    <Compile Include="ProcessRouter.xaml.cs" />
+    <Compile Include="ProcessRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

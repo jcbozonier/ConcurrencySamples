@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFramework\Channel.cs" />
+    <Compile Include="BaseFramework\IObserver.cs" />
     <Compile Include="ChannelContracts\ILineByLineFileReadingAgentChannel.cs" />
     <Compile Include="Actors\LineByLineFileReadingAgentChannel.cs" />
     <Compile Include="Actors\LineByLineFileWritingAgent.cs" />
