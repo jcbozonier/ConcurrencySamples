@@ -44,15 +44,15 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample
                    displaySavedEdgeChannel
                }.Start();
 
-            urlToWebPageTextChannel.OnNext(new UrlMessage("http://www.cnn.com"));
+            //urlToWebPageTextChannel.OnNext(new UrlMessage("http://www.jenniferhumphrey.com/"));
+            urlToWebPageTextChannel.OnNext(new UrlMessage("http://www.cnn.com/"));
 
             //downloadWebpageProcess.SendWebPageTextTo(parseWebPageProcess);
-            //parseWebPageProcess.SendParsedPagesTo(messageCounter);
-            //messageCounter.SendMessagesTo(storeWebPageDataProcess);
+            //parseWebPageProcess.SendParsedPagesTo(storeWebPageDataProcess);
             //storeWebPageDataProcess.SendUniqueUrlsTo(downloadWebpageProcess);
             //storeWebPageDataProcess.SendSavedEdgesTo(displaySavedEdgesProcess);
 
-            //downloadWebpageProcess.OnNext(new UrlMessage("http://www.cnn.com"));
+            //downloadWebpageProcess.OnNext(new UrlMessage("http://www.cnn.com/"));
 
         }
     }
@@ -70,7 +70,7 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample
 
         public void OnNext(WebsiteEdge message)
         {
-            ViewDispatcher.Invoke((Action)(()=>ViewModel.WebsiteEdges.Add(message)), DispatcherPriority.Normal);
+            ViewDispatcher.Invoke((Action) (() => ViewModel.AddEdge(message)), DispatcherPriority.Normal);
             
         }
 

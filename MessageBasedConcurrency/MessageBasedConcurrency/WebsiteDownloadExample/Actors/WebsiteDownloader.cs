@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using MessageBasedConcurrency.BaseFramework;
 using MessageBasedConcurrency.WebsiteDownloadExample.Messages;
 
@@ -10,17 +11,38 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
     {
         private IObserver<WebPageSourceMessage> _PageParsingChannel;
 
+        private bool _DomainSet;
+        private string _DomainUri;
+
         public void OnNext(UrlMessage message)
         {
             try
             {
                 var url = message.Url;
-                var request = HttpWebRequest.Create(url);
-                request.BeginGetResponse(asyncResult => _SendPageSourceAlong(request, asyncResult, new Url(url)), null);
+
+                if(!_DomainSet)
+                    _GetDomainUri(url);
+
+                if (_DomainSet && url.Contains(_DomainUri))
+                {
+                    var request = HttpWebRequest.Create(url);
+                    request.BeginGetResponse(asyncResult => _SendPageSourceAlong(request, asyncResult, new Url(url)),
+                                             null);
+                }
             }
             catch(Exception err)
             {
                 // Fuggit about it.
+            }
+        }
+
+        public void _GetDomainUri(string url)
+        {
+            var match = Regex.Match(url, @"^http://[a-zA-Z0-9\/\.\-]+[\/]*$");
+            if (match.Success)
+            {
+                _DomainUri = match.Value;
+                _DomainSet = true;
             }
         }
 

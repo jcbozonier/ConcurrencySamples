@@ -13,10 +13,12 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
         private IObserver<WebsiteEdge> _NewlySavedEdge;
 
         readonly List<WebsiteEdge> _WebsiteEdges;
+        readonly HashSet<string> _WebsiteAddresses;
 
         public WebPageDataStorer()
         {
             _WebsiteEdges = new List<WebsiteEdge>();
+            _WebsiteAddresses = new HashSet<string>();
         }
 
         public void OnNext(ParsedWebPageMessage message)
@@ -36,8 +38,11 @@ namespace MessageBasedConcurrency.WebsiteDownloadExample.Actors
 
             foreach(var url in message.ToUrls)
             {
-                _NewlyEnteredUrlNotifications.OnNext(new UrlMessage(url));
-                Debug.WriteLine(url);
+                if (!_WebsiteAddresses.Contains(url))
+                {
+                    _NewlyEnteredUrlNotifications.OnNext(new UrlMessage(url));
+                    _WebsiteAddresses.Add(url);
+                }
             }
         }
 
