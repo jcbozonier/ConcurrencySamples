@@ -6,10 +6,12 @@ namespace GameOfLife
     public class LifeDemoViewModel : INotifyPropertyChanged
     {
         public DisplayableCell FakeDisplayableCell
-        { get
         {
-            return new DisplayableCell(false);
-        } }
+            get
+            {
+                return new DisplayableCell(false);
+            }
+        }
 
         public List<List<DisplayableCell>> Cells
         {
