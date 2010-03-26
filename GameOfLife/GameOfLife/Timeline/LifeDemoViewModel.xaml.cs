@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace GameOfLife
+namespace GameOfLife.Timeline
 {
     public class LifeDemoViewModel : INotifyPropertyChanged
     {

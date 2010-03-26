@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace GameOfLife
+namespace GameOfLife.Timeline
 {
     public class DisplayableCell
     {
