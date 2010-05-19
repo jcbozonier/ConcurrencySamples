@@ -1,4 +1,4 @@
-﻿using System;
+﻿using GameOfLife;
 using NUnit.Framework;
 
 namespace GameOfLifeTests
@@ -16,19 +16,6 @@ namespace GameOfLifeTests
 
             //It should have died
             Assert.IsTrue(cellDied, "The cell should have died.");
-        }
-    }
-
-    public class Cell
-    {
-        public static Cell CreateDeadCell()
-        {
-            return new Cell();
-        }
-
-        public void MomentPassed(Action deathMessage)
-        {
-            deathMessage();
         }
     }
 }
