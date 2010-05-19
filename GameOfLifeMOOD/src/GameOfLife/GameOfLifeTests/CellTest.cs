@@ -1,4 +1,6 @@
-﻿using GameOfLife;
+﻿using System;
+using System.Linq;
+using GameOfLife;
 using NUnit.Framework;
 
 namespace GameOfLifeTests
@@ -35,9 +37,7 @@ namespace GameOfLifeTests
             var cellBorn = false;
             var cell = Cell.CreateDeadCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 3);
 
             cell.MomentPassed(() => cellDied = true, () => cellBorn = true);
 
@@ -52,8 +52,7 @@ namespace GameOfLifeTests
             var cellDied = false;
             var cell = Cell.CreateDeadCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 2);
 
             cell.MomentPassed(()=> cellDied = true, ()=>cellBorn = true);
 
@@ -95,8 +94,7 @@ namespace GameOfLifeTests
             var cellDied = false;
             var cell = Cell.CreateLiveCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 2);
 
             cell.MomentPassed(() => cellDied = true, () => { });
 
@@ -109,9 +107,7 @@ namespace GameOfLifeTests
             var cellBorn = false;
             var cell = Cell.CreateLiveCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 3);
 
             cell.MomentPassed(()=>{}, ()=>cellBorn = true);
 
@@ -124,10 +120,7 @@ namespace GameOfLifeTests
             var cellDied = false;
             var cell = Cell.CreateLiveCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 4);
 
             cell.MomentPassed(() => cellDied = true, () => { });
 
@@ -140,14 +133,17 @@ namespace GameOfLifeTests
             var cellBorn = false;
             var cell = Cell.CreateDeadCell();
 
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
-            cell.NeighborRevived();
+            Call(cell.NeighborRevived, 4);
 
             cell.MomentPassed(()=>{}, ()=>cellBorn = true);
 
             Assert.IsFalse(cellBorn, "The cell should not be born.");
+        }
+
+        public void Call(Action action, int timesToCall)
+        {
+            foreach (var index in Enumerable.Range(0, timesToCall))
+                action();
         }
     }
 }
