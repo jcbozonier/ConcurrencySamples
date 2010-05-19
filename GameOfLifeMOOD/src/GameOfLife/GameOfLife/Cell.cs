@@ -5,15 +5,21 @@ namespace GameOfLife
     public class Cell
     {
         private int NeighborCount;
+        private bool IsAlive;
+
+        private Cell(bool isAlive)
+        {
+            IsAlive = isAlive;
+        }
 
         public static Cell CreateDeadCell()
         {
-            return new Cell();
+            return new Cell(false);
         }
 
         public static Cell CreateLiveCell()
         {
-            return new Cell();
+            return new Cell(true);
         }
 
         public void NeighborRevived()
@@ -25,9 +31,9 @@ namespace GameOfLife
         {
             if (NeighborCount == 2)
                 return;
-            if (NeighborCount != 3)
+            else if (NeighborCount != 3 && IsAlive)
                 deathMessage();
-            else
+            else if(!IsAlive)
                 birthMessage();
         }
     }
