@@ -14,7 +14,6 @@ namespace GameOfLifeTests
 
             cell.MomentPassed(() => cellDied = true);
 
-            //It should have died
             Assert.IsTrue(cellDied, "The cell should have died.");
         }
 
