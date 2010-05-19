@@ -16,12 +16,6 @@ namespace GameOfLife
             return new Cell();
         }
 
-        public void MomentPassed(Action deathMessage)
-        {
-            if(NeighborCount != 3)
-                deathMessage();
-        }
-
         public void NeighborRevived()
         {
             NeighborCount++;
@@ -29,7 +23,10 @@ namespace GameOfLife
 
         public void MomentPassed(Action deathMessage, Action birthMessage)
         {
-            birthMessage();
+            if (NeighborCount != 3)
+                deathMessage();
+            else
+                birthMessage();
         }
     }
 }

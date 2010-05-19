@@ -12,7 +12,7 @@ namespace GameOfLifeTests
             var cellDied = false;
             var cell = Cell.CreateDeadCell();
 
-            cell.MomentPassed(() => cellDied = true);
+            cell.MomentPassed(() => cellDied = true, ()=> { });
 
             Assert.IsTrue(cellDied, "The cell should have died.");
         }
@@ -23,7 +23,7 @@ namespace GameOfLifeTests
             var cellDied = false;
             var cell = Cell.CreateLiveCell();
 
-            cell.MomentPassed(() => cellDied = true);
+            cell.MomentPassed(() => cellDied = true, () => { });
 
             Assert.IsTrue(cellDied, "The cell should have died.");
         }
