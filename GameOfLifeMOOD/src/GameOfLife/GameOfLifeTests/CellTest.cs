@@ -119,7 +119,7 @@ namespace GameOfLifeTests
         }
 
         [Test]
-        public void Given_a_live_cell_with_more_than_three_neighbors()
+        public void Given_a_live_cell_with_more_than_three_neighbors_when_a_moment_passes()
         {
             var cellDied = false;
             var cell = Cell.CreateLiveCell();
@@ -132,6 +132,22 @@ namespace GameOfLifeTests
             cell.MomentPassed(() => cellDied = true, () => { });
 
             Assert.IsTrue(cellDied, "The cell should die from overcrowding.");
+        }
+
+        [Test]
+        public void Given_a_dead_cell_with_more_than_three_neighbors_when_a_moment_passes()
+        {
+            var cellBorn = false;
+            var cell = Cell.CreateDeadCell();
+
+            cell.NeighborRevived();
+            cell.NeighborRevived();
+            cell.NeighborRevived();
+            cell.NeighborRevived();
+
+            cell.MomentPassed(()=>{}, ()=>cellBorn = true);
+
+            Assert.IsFalse(cellBorn, "The cell should not be born.");
         }
     }
 }
