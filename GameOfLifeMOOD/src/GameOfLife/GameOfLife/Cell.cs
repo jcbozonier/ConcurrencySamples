@@ -9,6 +9,11 @@ namespace GameOfLife
             return new Cell();
         }
 
+        public static Cell CreateLiveCell()
+        {
+            return new Cell();
+        }
+
         public void MomentPassed(Action deathMessage)
         {
             deathMessage();
