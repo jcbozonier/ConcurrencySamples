@@ -32,15 +32,17 @@ namespace GameOfLifeTests
         public void Given_a_dead_cell_with_exactly_three_neighbors_when_a_moment_passes()
         {
             var cellDied = false;
+            var cellBorn = false;
             var cell = Cell.CreateDeadCell();
 
             cell.NeighborRevived();
             cell.NeighborRevived();
             cell.NeighborRevived();
 
-            cell.MomentPassed(()=>cellDied = true);
+            cell.MomentPassed(() => cellDied = true, () => cellBorn = true);
 
-            Assert.IsFalse(cellDied, "It should not die.");
+            Assert.IsFalse(cellDied, "The cell should not die.");
+            Assert.IsTrue(cellBorn, "The cell should be born.");
         }
     }
 }

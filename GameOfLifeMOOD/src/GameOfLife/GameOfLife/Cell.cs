@@ -26,5 +26,10 @@ namespace GameOfLife
         {
             NeighborCount++;
         }
+
+        public void MomentPassed(Action deathMessage, Action birthMessage)
+        {
+            birthMessage();
+        }
     }
 }
