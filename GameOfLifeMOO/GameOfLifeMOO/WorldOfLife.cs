@@ -129,7 +129,6 @@ namespace GameOfLifeMOO
         private List<Cell> _GetCells(int xMax, int yMax)
         {
             var totalCellCount = xMax * yMax;
-            var randomThing = new Random();
             return Enumerable.Range(0, totalCellCount).Select(index => new Cell(this)).ToList();
         }
     }

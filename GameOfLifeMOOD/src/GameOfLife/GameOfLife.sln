@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife", "GameOfLife\GameOfLife.csproj", "{FBA80CD0-16D7-4D2E-8A4A-3967551144AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLifeTests", "GameOfLifeTests\GameOfLifeTests.csproj", "{2AE3425C-0305-41D6-8708-E3B5CFAEB3BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBA80CD0-16D7-4D2E-8A4A-3967551144AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA80CD0-16D7-4D2E-8A4A-3967551144AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA80CD0-16D7-4D2E-8A4A-3967551144AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA80CD0-16D7-4D2E-8A4A-3967551144AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE3425C-0305-41D6-8708-E3B5CFAEB3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE3425C-0305-41D6-8708-E3B5CFAEB3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE3425C-0305-41D6-8708-E3B5CFAEB3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE3425C-0305-41D6-8708-E3B5CFAEB3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
