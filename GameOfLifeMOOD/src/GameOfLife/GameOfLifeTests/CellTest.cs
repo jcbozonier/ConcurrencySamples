@@ -44,5 +44,21 @@ namespace GameOfLifeTests
             Assert.IsFalse(cellDied, "The cell should not die.");
             Assert.IsTrue(cellBorn, "The cell should be born.");
         }
+
+        [Test]
+        public void Given_a_dead_cell_with_two_neighbors_when_a_moment_passes()
+        {
+            var cellBorn = false;
+            var cellDied = false;
+            var cell = Cell.CreateDeadCell();
+
+            cell.NeighborRevived();
+            cell.NeighborRevived();
+
+            cell.MomentPassed(()=> cellDied = true, ()=>cellBorn = true);
+
+            Assert.IsFalse(cellBorn, "It should not be born.");
+            Assert.IsFalse(cellDied, "It should not die.");
+        }
     }
 }

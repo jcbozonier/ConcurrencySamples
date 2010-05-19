@@ -23,6 +23,8 @@ namespace GameOfLife
 
         public void MomentPassed(Action deathMessage, Action birthMessage)
         {
+            if (NeighborCount == 2)
+                return;
             if (NeighborCount != 3)
                 deathMessage();
             else
