@@ -11,8 +11,9 @@ namespace GameOfLife
         {
             Startup += (sndr, evt) =>
             {
-                var cell = Cell.CreateDeadCell(()=>{}, () => { });
-                var board = new BoardViewer(()=>cell.ToggleLife());
+                var board = new BoardViewer();
+                var cell = Cell.CreateDeadCell(() => board.DarkenButton(), () => board.LightenButton());
+                board.OnCellToggle(cell.ToggleLife);
                 board.Show();
 
                 cell.NeighborRevived();

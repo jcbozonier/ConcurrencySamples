@@ -9,12 +9,16 @@ namespace GameOfLife
     /// </summary>
     public partial class BoardViewer : Window
     {
-        private readonly Action OnCellClick;
+        private Action OnCellClick;
 
-        public BoardViewer(Action onCellClick)
+        public BoardViewer()
+        {
+            InitializeComponent();
+        }
+
+        public void OnCellToggle(Action onCellClick)
         {
             OnCellClick = onCellClick;
-            InitializeComponent();
         }
 
         public void DarkenButton()
