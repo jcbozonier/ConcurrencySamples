@@ -11,20 +11,20 @@ namespace GameOfLife
         {
             Startup += (sndr, evt) =>
             {
-                var cell = Cell.CreateDeadCell();
-                var board = new BoardViewer();
+                var cell = Cell.CreateDeadCell(()=>{}, () => { });
+                var board = new BoardViewer(()=>cell.ToggleLife());
                 board.Show();
 
                 cell.NeighborRevived();
                 cell.NeighborRevived();
                 cell.NeighborRevived();
 
-                cell.MomentPassed(()=> board.LightenButton() , ()=>board.DarkenButton());
+                cell.MomentPassed();
 
                 cell.NeighborRevived();
                 cell.NeighborRevived();
 
-                cell.MomentPassed(() => board.LightenButton(), () => board.DarkenButton());
+                cell.MomentPassed();
             };
         }
     }

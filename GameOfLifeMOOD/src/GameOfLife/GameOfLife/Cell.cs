@@ -7,19 +7,24 @@ namespace GameOfLife
         private int NeighborCount;
         private bool IsAlive;
 
-        private Cell(bool isAlive)
+        private Action BirthMessage;
+        private Action DeathMessage;
+
+        private Cell(bool isAlive, Action birthMessage, Action deathMessage)
         {
             IsAlive = isAlive;
+            BirthMessage = birthMessage;
+            DeathMessage = deathMessage;
         }
 
-        public static Cell CreateDeadCell()
+        public static Cell CreateDeadCell(Action birthMessage, Action deathMessage)
         {
-            return new Cell(false);
+            return new Cell(false, birthMessage, deathMessage);
         }
 
-        public static Cell CreateLiveCell()
+        public static Cell CreateLiveCell(Action birthMessage, Action deathMessage)
         {
-            return new Cell(true);
+            return new Cell(true, birthMessage, deathMessage);
         }
 
         public void NeighborRevived()
@@ -27,20 +32,30 @@ namespace GameOfLife
             NeighborCount++;
         }
 
-        public void MomentPassed(Action deathMessage, Action birthMessage)
+        public void MomentPassed()
         {
             if (NeighborCount == 2)
                 return;
             else if (NeighborCount == 3 && !IsAlive)
             {
                 IsAlive = true;
-                birthMessage();
+                BirthMessage();
             }
             else if(IsAlive)
             {
                 IsAlive = false;
-                deathMessage();
+                DeathMessage();
             }
+        }
+
+        public void ToggleLife()
+        {
+            IsAlive = !IsAlive;
+
+            if (IsAlive)
+                BirthMessage();
+            else
+                DeathMessage();
         }
     }
 }

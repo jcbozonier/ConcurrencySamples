@@ -3,6 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Window1" Height="300" Width="300">
     <Grid>
-        <Button x:Name="CellField" Background="AntiqueWhite" />
+        <Button x:Name="CellField" Click="CellField_Click" Background="AntiqueWhite" />
     </Grid>
 </Window>

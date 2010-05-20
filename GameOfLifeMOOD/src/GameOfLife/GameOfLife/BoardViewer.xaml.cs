@@ -9,8 +9,11 @@ namespace GameOfLife
     /// </summary>
     public partial class BoardViewer : Window
     {
-        public BoardViewer()
+        private readonly Action OnCellClick;
+
+        public BoardViewer(Action onCellClick)
         {
+            OnCellClick = onCellClick;
             InitializeComponent();
         }
 
@@ -22,6 +25,11 @@ namespace GameOfLife
         public void LightenButton()
         {
             this.CellField.Background = Brushes.AntiqueWhite;
+        }
+
+        private void CellField_Click(object sender, RoutedEventArgs e)
+        {
+            OnCellClick();
         }
     }
 }
