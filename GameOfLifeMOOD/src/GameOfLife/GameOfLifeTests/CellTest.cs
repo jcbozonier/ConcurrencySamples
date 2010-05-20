@@ -140,6 +140,44 @@ namespace GameOfLifeTests
             Assert.IsFalse(cellBorn, "The cell should not be born.");
         }
 
+        [Test]
+        public void Given_a_dead_cell_when_revived_and_then_killed()
+        {
+            var cellDied = false;
+            var cellBorn = false;
+
+            var cell = Cell.CreateDeadCell();
+
+            Call(cell.NeighborRevived, 3);
+
+            cell.MomentPassed(()=>cellDied=true, ()=>cellBorn = true);
+
+            cell.NeighborRevived();
+
+            cell.MomentPassed(() => cellDied = true, () => cellBorn = true);
+
+            Assert.IsTrue(cellBorn, "The cell should have been born.");
+            Assert.IsTrue(cellDied, "The cell should have died.");
+        }
+
+        [Test]
+        public void Given_a_live_cell_when_killed_and_then_revived()
+        {
+            var cellDied = false;
+            var cellBorn = false;
+
+            var cell = Cell.CreateLiveCell();
+
+            cell.MomentPassed(()=>cellDied = true, ()=>cellBorn = true);
+
+            Call(cell.NeighborRevived, 3);
+
+            cell.MomentPassed(() => cellDied = true, () => cellBorn = true);
+
+            Assert.IsTrue(cellDied, "The cell should have died.");
+            Assert.IsTrue(cellBorn, "The cell should have been born.");
+        }
+
         public void Call(Action action, int timesToCall)
         {
             foreach (var index in Enumerable.Range(0, timesToCall))

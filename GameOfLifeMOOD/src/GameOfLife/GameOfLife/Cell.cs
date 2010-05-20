@@ -32,9 +32,15 @@ namespace GameOfLife
             if (NeighborCount == 2)
                 return;
             else if (NeighborCount == 3 && !IsAlive)
+            {
+                IsAlive = true;
                 birthMessage();
+            }
             else if(IsAlive)
+            {
+                IsAlive = false;
                 deathMessage();
+            }
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 
 namespace GameOfLife
 {
@@ -16,7 +11,20 @@ namespace GameOfLife
         {
             Startup += (sndr, evt) =>
             {
+                var cell = Cell.CreateDeadCell();
+                var board = new BoardViewer();
+                board.Show();
 
+                cell.NeighborRevived();
+                cell.NeighborRevived();
+                cell.NeighborRevived();
+
+                cell.MomentPassed(()=> board.LightenButton() , ()=>board.DarkenButton());
+
+                cell.NeighborRevived();
+                cell.NeighborRevived();
+
+                cell.MomentPassed(() => board.LightenButton(), () => board.DarkenButton());
             };
         }
     }
